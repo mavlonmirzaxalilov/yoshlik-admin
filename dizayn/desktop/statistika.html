@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="uz">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>Statistika - Boshqaruv Paneli</title>
+		<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<script id="tailwind-config">
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						colors: {
+							outline: '#737686',
+							'secondary-fixed': '#dae2fd',
+							'on-surface': '#0b1c30',
+							'on-secondary-fixed': '#131b2e',
+							'on-tertiary-container': '#fff6f3',
+							'tertiary-fixed': '#ffdbcc',
+							'surface-container-lowest': '#ffffff',
+							'primary-fixed': '#dce1ff',
+							'on-primary-container': '#f8f6ff',
+							'on-tertiary-fixed-variant': '#7b2f00',
+							primary: '#004bd8',
+							secondary: '#565e74',
+							'secondary-container': '#dae2fd',
+							'on-background': '#0b1c30',
+							'on-tertiary': '#ffffff',
+							'on-tertiary-fixed': '#351000',
+							'secondary-fixed-dim': '#bec6e0',
+							background: '#f8f9ff',
+							'on-surface-variant': '#434655',
+							surface: '#f8f9ff',
+							'surface-dim': '#cbdbf5',
+							'on-error': '#ffffff',
+							'tertiary-container': '#c14d00',
+							'primary-container': '#3366f2',
+							error: '#ba1a1a',
+							'surface-container-low': '#eff4ff',
+							'surface-container-high': '#dce9ff',
+							'on-secondary': '#ffffff',
+							'primary-fixed-dim': '#b6c4ff',
+							'on-secondary-fixed-variant': '#3f465c',
+							'surface-variant': '#d3e4fe',
+							'inverse-on-surface': '#eaf1ff',
+							'on-primary': '#ffffff',
+							tertiary: '#993c00',
+							'surface-container-highest': '#d3e4fe',
+							'tertiary-fixed-dim': '#ffb695',
+							'on-error-container': '#93000a',
+							'surface-bright': '#f8f9ff',
+							'on-primary-fixed': '#00164e',
+							'on-secondary-container': '#5c647a',
+							'on-primary-fixed-variant': '#003baf',
+							'inverse-primary': '#b6c4ff',
+							'inverse-surface': '#213145',
+							'surface-container': '#e5eeff',
+							'surface-tint': '#1151de',
+							'error-container': '#ffdad6',
+							'outline-variant': '#c3c5d7',
+						},
+						borderRadius: {
+							DEFAULT: '0.25rem',
+							lg: '0.5rem',
+							xl: '0.75rem',
+							full: '9999px',
+						},
+						spacing: {
+							'container-padding': '32px',
+							'sidebar-width': '280px',
+							'stack-md': '16px',
+							'stack-sm': '8px',
+							'card-gap': '24px',
+							'section-margin': '40px',
+						},
+						fontFamily: {
+							'body-md': ['Inter'],
+							'label-caps': ['Inter'],
+							'headline-md': ['Inter'],
+							'title-sm': ['Inter'],
+							'display-lg': ['Inter'],
+							'status-badge': ['Inter'],
+						},
+						fontSize: {
+							'body-md': [
+								'16px',
+								{
+									lineHeight: '24px',
+									fontWeight: '400',
+								},
+							],
+							'label-caps': [
+								'12px',
+								{
+									lineHeight: '16px',
+									letterSpacing: '0.05em',
+									fontWeight: '600',
+								},
+							],
+							'headline-md': [
+								'24px',
+								{
+									lineHeight: '32px',
+									letterSpacing: '-0.01em',
+									fontWeight: '600',
+								},
+							],
+							'title-sm': [
+								'18px',
+								{
+									lineHeight: '24px',
+									fontWeight: '600',
+								},
+							],
+							'display-lg': [
+								'30px',
+								{
+									lineHeight: '38px',
+									letterSpacing: '-0.02em',
+									fontWeight: '700',
+								},
+							],
+							'status-badge': [
+								'13px',
+								{
+									lineHeight: '18px',
+									fontWeight: '500',
+								},
+							],
+						},
+					},
+				},
+			}
+		</script>
+		<style>
+			.custom-shadow {
+				box-shadow:
+					0px 1px 3px rgba(0, 0, 0, 0.1),
+					0px 1px 2px rgba(0, 0, 0, 0.06);
+			}
+
+			/* Simple simulated chart styles for visual representation without JS libraries */
+			.chart-bar-blue {
+				background-color: #3366f2;
+			}
+			.chart-bar-light {
+				background-color: #dce1ff;
+			}
+			.chart-line {
+				stroke: #3366f2;
+				stroke-width: 2px;
+				fill: none;
+			}
+			.chart-area {
+				fill: #eff4ff;
+			}
+			.chart-grid {
+				stroke: #e2e8f0;
+				stroke-width: 1px;
+				stroke-dasharray: 4;
+			}
+		</style>
+	</head>
+	<body
+		class="bg-background text-on-background font-body-md text-body-md h-screen flex overflow-hidden"
+	>
+		<!-- Sidebar Component -->
+		<aside
+			class="fixed left-0 top-0 h-full w-[280px] z-40 flex flex-col bg-on-surface dark:bg-on-surface transition-all duration-200 ease-in-out md:flex hidden"
+		>
+			<!-- Logo Area -->
+			<div class="h-20 flex items-center px-6 border-b border-white/10">
+				<span
+					class="material-symbols-outlined text-surface-bright mr-3"
+					style="font-variation-settings: 'FILL' 1"
+					>restaurant</span
+				>
+				<div>
+					<h1
+						class="text-title-sm font-title-sm font-bold text-surface-bright dark:text-surface-bright leading-tight"
+					>
+						Yoshlik
+					</h1>
+					<p class="text-label-caps font-label-caps text-outline-variant/60">
+						Admin Panel
+					</p>
+				</div>
+			</div>
+			<!-- Navigation Menu -->
+			<nav class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
+				<a
+					class="flex items-center px-4 py-3 rounded-lg text-outline-variant/50 dark:text-outline-variant/40 hover:bg-surface-variant/5 hover:text-surface-bright transition-all"
+					href="#"
+				>
+					<span class="material-symbols-outlined mr-3 text-[20px]"
+						>dashboard</span
+					>
+					<span class="font-body-md text-body-md">Boshqaruv paneli</span>
+				</a>
+				<a
+					class="flex items-center px-4 py-3 rounded-lg text-outline-variant/50 dark:text-outline-variant/40 hover:bg-surface-variant/5 hover:text-surface-bright transition-all"
+					href="#"
+				>
+					<span class="material-symbols-outlined mr-3 text-[20px]"
+						>shopping_cart</span
+					>
+					<span class="font-body-md text-body-md">Buyurtmalar</span>
+				</a>
+				<a
+					class="flex items-center px-4 py-3 rounded-lg text-outline-variant/50 dark:text-outline-variant/40 hover:bg-surface-variant/5 hover:text-surface-bright transition-all"
+					href="#"
+				>
+					<span class="material-symbols-outlined mr-3 text-[20px]"
+						>restaurant_menu</span
+					>
+					<span class="font-body-md text-body-md">Menyu</span>
+				</a>
+				<a
+					class="flex items-center px-4 py-3 rounded-lg text-outline-variant/50 dark:text-outline-variant/40 hover:bg-surface-variant/5 hover:text-surface-bright transition-all"
+					href="#"
+				>
+					<span class="material-symbols-outlined mr-3 text-[20px]"
+						>payments</span
+					>
+					<span class="font-body-md text-body-md">Kassa</span>
+				</a>
+				<a
+					class="flex items-center px-4 py-3 rounded-lg text-outline-variant/50 dark:text-outline-variant/40 hover:bg-surface-variant/5 hover:text-surface-bright transition-all"
+					href="#"
+				>
+					<span class="material-symbols-outlined mr-3 text-[20px]"
+						>account_balance_wallet</span
+					>
+					<span class="font-body-md text-body-md">Harajatlar</span>
+				</a>
+				<!-- Active State -->
+				<a
+					class="flex items-center px-4 py-3 rounded-lg text-primary-container dark:text-primary-fixed-dim font-bold border-l-4 border-primary-container bg-surface-variant/10 transition-all"
+					href="#"
+				>
+					<span
+						class="material-symbols-outlined mr-3 text-[20px]"
+						style="font-variation-settings: 'FILL' 1"
+						>bar_chart</span
+					>
+					<span class="font-body-md text-body-md">Statistika</span>
+				</a>
+				<a
+					class="flex items-center px-4 py-3 rounded-lg text-outline-variant/50 dark:text-outline-variant/40 hover:bg-surface-variant/5 hover:text-surface-bright transition-all mt-auto"
+					href="#"
+				>
+					<span class="material-symbols-outlined mr-3 text-[20px]"
+						>settings</span
+					>
+					<span class="font-body-md text-body-md">Sozlamalar</span>
+				</a>
+			</nav>
+			<!-- User Profile Area -->
+			<div class="p-4 border-t border-white/10">
+				<div
+					class="flex items-center px-2 py-2 rounded-lg hover:bg-surface-variant/5 transition-colors cursor-pointer"
+				>
+					<img
+						class="w-10 h-10 rounded-full object-cover mr-3 border border-outline-variant/20"
+						data-alt="A small circular avatar placeholder image showing a professional headshot of a cafe manager in a crisp uniform. The lighting is studio quality, soft and flattering, emphasizing a trustworthy and modern hospitality appearance. The background is a clean, neutral tone to match a high-end UI design."
+						src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE4rTXKOhyG_qHkN9O82SRZacSEz-QglQm_gaB4bc64OngFdwJr3IrAGumbR4BhBQYNYQokI449o7m6t6rm7yvnyrxmpjWqsXrNN8dwSAoxAAeJae1GTPXNKKB7lanJ-88YB9RuuljFGttvoax7i421D1I-70Uj7xTMuTcvh6MVKY6RBeGePrUpZTQWLbQYvW3TA_8-uBzipGhYt5fNHXs4xf8FhRPqKKxRJk2UMlIw99hKMDum43QdA"
+					/>
+					<div class="flex-1 min-w-0">
+						<p
+							class="text-body-md font-body-md font-medium text-surface-bright truncate"
+						>
+							Mavlon
+						</p>
+						<p class="text-[11px] text-outline-variant/60 truncate">Menejer</p>
+					</div>
+					<span
+						class="material-symbols-outlined text-outline-variant/50 hover:text-error transition-colors"
+						>logout</span
+					>
+				</div>
+			</div>
+		</aside>
+		<!-- Main Content Wrapper -->
+		<div
+			class="flex-1 flex flex-col md:ml-[280px] w-full min-h-screen bg-background relative overflow-y-auto"
+		>
+			<!-- TopAppBar Component -->
+			<header
+				class="sticky top-0 z-30 flex justify-between items-center w-full px-container-padding py-4 bg-surface dark:bg-background border-b border-outline-variant/30"
+			>
+				<div class="flex items-center gap-4">
+					<button
+						class="md:hidden text-on-surface p-2 rounded-lg hover:bg-surface-container-low transition-colors"
+					>
+						<span class="material-symbols-outlined">menu</span>
+					</button>
+					<h2
+						class="text-headline-md font-headline-md font-semibold text-on-surface dark:text-on-background"
+					>
+						Statistika
+					</h2>
+				</div>
+				<div class="flex items-center gap-3">
+					<button
+						class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-transform scale-95 active:scale-90"
+					>
+						<span class="material-symbols-outlined">light_mode</span>
+					</button>
+					<button
+						class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-transform scale-95 active:scale-90 relative"
+					>
+						<span class="material-symbols-outlined">notifications</span>
+						<span
+							class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"
+						></span>
+					</button>
+				</div>
+			</header>
+			<!-- Main Canvas Area -->
+			<main class="flex-1 px-container-padding py-8 space-y-section-margin">
+				<!-- Controls Row: Date Range & Actions -->
+				<div
+					class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/30 custom-shadow"
+				>
+					<div class="flex items-center gap-2">
+						<div class="relative">
+							<select
+								class="appearance-none bg-surface border border-outline-variant/50 text-on-surface text-body-md font-body-md rounded-lg pl-10 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent cursor-pointer"
+							>
+								<option>Oxirgi 7 kun</option>
+								<option>Oxirgi 30 kun</option>
+								<option>Joriy oy</option>
+								<option>O'tgan oy</option>
+								<option>Shaxsiy oraliq...</option>
+							</select>
+							<span
+								class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]"
+								>calendar_today</span
+							>
+							<span
+								class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px] pointer-events-none"
+								>expand_more</span
+							>
+						</div>
+					</div>
+					<div class="flex gap-2">
+						<button
+							class="flex items-center gap-2 px-4 py-2 bg-surface border border-outline-variant/50 text-on-surface rounded-lg hover:bg-surface-container-low transition-colors text-body-md font-body-md font-medium"
+						>
+							<span class="material-symbols-outlined text-[20px]"
+								>download</span
+							>
+							Eksport
+						</button>
+						<button
+							class="flex items-center gap-2 px-4 py-2 bg-primary-container text-on-primary-container rounded-lg hover:bg-primary transition-colors text-body-md font-body-md font-medium custom-shadow"
+						>
+							<span class="material-symbols-outlined text-[20px]">refresh</span>
+							Yangilash
+						</button>
+					</div>
+				</div>
+				<!-- Summary Cards (Comparison) -->
+				<div
+					class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-card-gap"
+				>
+					<!-- Card 1 -->
+					<div
+						class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 custom-shadow flex flex-col gap-4 relative overflow-hidden group hover:border-primary-container/30 transition-colors"
+					>
+						<div
+							class="absolute top-0 right-0 w-24 h-24 bg-primary-container/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"
+						></div>
+						<div class="flex justify-between items-start">
+							<p
+								class="text-body-md font-body-md text-on-surface-variant font-medium"
+							>
+								Umumiy savdo
+							</p>
+							<div
+								class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center"
+							>
+								<span class="material-symbols-outlined text-primary-container"
+									>payments</span
+								>
+							</div>
+						</div>
+						<div class="flex flex-col gap-1">
+							<h3 class="text-display-lg font-display-lg text-on-surface">
+								12,450,000
+							</h3>
+							<p
+								class="text-label-caps font-label-caps text-on-surface-variant/70"
+							>
+								so'm
+							</p>
+						</div>
+						<div
+							class="flex items-center gap-2 mt-2 pt-4 border-t border-outline-variant/20"
+						>
+							<span
+								class="flex items-center text-status-badge font-status-badge text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full"
+							>
+								<span class="material-symbols-outlined text-[16px] mr-1"
+									>trending_up</span
+								>
+								+15.2%
+							</span>
+							<span
+								class="text-label-caps font-label-caps text-on-surface-variant"
+								>o'tgan haftaga nisbatan</span
+							>
+						</div>
+					</div>
+					<!-- Card 2 -->
+					<div
+						class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 custom-shadow flex flex-col gap-4 relative overflow-hidden group hover:border-primary-container/30 transition-colors"
+					>
+						<div
+							class="absolute top-0 right-0 w-24 h-24 bg-secondary-container/20 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"
+						></div>
+						<div class="flex justify-between items-start">
+							<p
+								class="text-body-md font-body-md text-on-surface-variant font-medium"
+							>
+								Buyurtmalar soni
+							</p>
+							<div
+								class="w-10 h-10 rounded-full bg-secondary-container/50 flex items-center justify-center"
+							>
+								<span class="material-symbols-outlined text-primary"
+									>receipt_long</span
+								>
+							</div>
+						</div>
+						<div class="flex flex-col gap-1">
+							<h3 class="text-display-lg font-display-lg text-on-surface">
+								342
+							</h3>
+							<p
+								class="text-label-caps font-label-caps text-on-surface-variant/70"
+							>
+								ta
+							</p>
+						</div>
+						<div
+							class="flex items-center gap-2 mt-2 pt-4 border-t border-outline-variant/20"
+						>
+							<span
+								class="flex items-center text-status-badge font-status-badge text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full"
+							>
+								<span class="material-symbols-outlined text-[16px] mr-1"
+									>trending_up</span
+								>
+								+8.4%
+							</span>
+							<span
+								class="text-label-caps font-label-caps text-on-surface-variant"
+								>o'tgan haftaga nisbatan</span
+							>
+						</div>
+					</div>
+					<!-- Card 3 -->
+					<div
+						class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 custom-shadow flex flex-col gap-4 relative overflow-hidden group hover:border-primary-container/30 transition-colors"
+					>
+						<div
+							class="absolute top-0 right-0 w-24 h-24 bg-tertiary-container/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"
+						></div>
+						<div class="flex justify-between items-start">
+							<p
+								class="text-body-md font-body-md text-on-surface-variant font-medium"
+							>
+								O'rtacha chek
+							</p>
+							<div
+								class="w-10 h-10 rounded-full bg-tertiary-container/10 flex items-center justify-center"
+							>
+								<span class="material-symbols-outlined text-tertiary-container"
+									>point_of_sale</span
+								>
+							</div>
+						</div>
+						<div class="flex flex-col gap-1">
+							<h3 class="text-display-lg font-display-lg text-on-surface">
+								36,400
+							</h3>
+							<p
+								class="text-label-caps font-label-caps text-on-surface-variant/70"
+							>
+								so'm
+							</p>
+						</div>
+						<div
+							class="flex items-center gap-2 mt-2 pt-4 border-t border-outline-variant/20"
+						>
+							<span
+								class="flex items-center text-status-badge font-status-badge text-error bg-error/10 px-2 py-0.5 rounded-full"
+							>
+								<span class="material-symbols-outlined text-[16px] mr-1"
+									>trending_down</span
+								>
+								-2.1%
+							</span>
+							<span
+								class="text-label-caps font-label-caps text-on-surface-variant"
+								>o'tgan haftaga nisbatan</span
+							>
+						</div>
+					</div>
+					<!-- Card 4 -->
+					<div
+						class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 custom-shadow flex flex-col gap-4 relative overflow-hidden group hover:border-primary-container/30 transition-colors"
+					>
+						<div
+							class="absolute top-0 right-0 w-24 h-24 bg-surface-variant rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"
+						></div>
+						<div class="flex justify-between items-start">
+							<p
+								class="text-body-md font-body-md text-on-surface-variant font-medium"
+							>
+								Yangi mijozlar
+							</p>
+							<div
+								class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center"
+							>
+								<span class="material-symbols-outlined text-primary-container"
+									>group_add</span
+								>
+							</div>
+						</div>
+						<div class="flex flex-col gap-1">
+							<h3 class="text-display-lg font-display-lg text-on-surface">
+								84
+							</h3>
+							<p
+								class="text-label-caps font-label-caps text-on-surface-variant/70"
+							>
+								kishi
+							</p>
+						</div>
+						<div
+							class="flex items-center gap-2 mt-2 pt-4 border-t border-outline-variant/20"
+						>
+							<span
+								class="flex items-center text-status-badge font-status-badge text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full"
+							>
+								<span class="material-symbols-outlined text-[16px] mr-1"
+									>trending_up</span
+								>
+								+12.0%
+							</span>
+							<span
+								class="text-label-caps font-label-caps text-on-surface-variant"
+								>o'tgan haftaga nisbatan</span
+							>
+						</div>
+					</div>
+				</div>
+				<!-- Charts Row 1 -->
+				<div class="grid grid-cols-1 lg:grid-cols-3 gap-card-gap">
+					<!-- Line Chart: Savdo dinamikasi -->
+					<div
+						class="lg:col-span-2 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 custom-shadow flex flex-col"
+					>
+						<div class="flex justify-between items-center mb-6">
+							<h3 class="text-title-sm font-title-sm text-on-surface">
+								Savdo dinamikasi
+							</h3>
+							<button
+								class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors"
+							>
+								<span class="material-symbols-outlined">more_vert</span>
+							</button>
+						</div>
+						<!-- Simulated SVG Line Chart -->
+						<div class="flex-1 w-full h-[300px] relative">
+							<svg
+								class="w-full h-full"
+								preserveAspectRatio="none"
+								viewBox="0 0 800 300"
+							>
+								<!-- Grid Lines -->
+								<line
+									class="chart-grid"
+									x1="50"
+									x2="800"
+									y1="50"
+									y2="50"
+								></line>
+								<line
+									class="chart-grid"
+									x1="50"
+									x2="800"
+									y1="125"
+									y2="125"
+								></line>
+								<line
+									class="chart-grid"
+									x1="50"
+									x2="800"
+									y1="200"
+									y2="200"
+								></line>
+								<line
+									stroke="#E2E8F0"
+									stroke-width="1"
+									x1="50"
+									x2="800"
+									y1="275"
+									y2="275"
+								></line>
+								<!-- Y-Axis Labels -->
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="end"
+									x="40"
+									y="55"
+								>
+									3M
+								</text>
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="end"
+									x="40"
+									y="130"
+								>
+									2M
+								</text>
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="end"
+									x="40"
+									y="205"
+								>
+									1M
+								</text>
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="end"
+									x="40"
+									y="280"
+								>
+									0
+								</text>
+								<!-- X-Axis Labels -->
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="middle"
+									x="100"
+									y="295"
+								>
+									Dush
+								</text>
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="middle"
+									x="216"
+									y="295"
+								>
+									Sesh
+								</text>
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="middle"
+									x="333"
+									y="295"
+								>
+									Chor
+								</text>
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="middle"
+									x="450"
+									y="295"
+								>
+									Pay
+								</text>
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="middle"
+									x="566"
+									y="295"
+								>
+									Juma
+								</text>
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="middle"
+									x="683"
+									y="295"
+								>
+									Shan
+								</text>
+								<text
+									fill="#737686"
+									font-family="Inter"
+									font-size="12"
+									text-anchor="middle"
+									x="780"
+									y="295"
+								>
+									Yak
+								</text>
+								<!-- Area Fill -->
+								<path
+									class="chart-area"
+									d="M50,275 L100,180 L216,140 L333,210 L450,110 L566,80 L683,160 L780,60 L780,275 Z"
+								></path>
+								<!-- Line -->
+								<path
+									class="chart-line"
+									d="M50,275 L100,180 L216,140 L333,210 L450,110 L566,80 L683,160 L780,60"
+								></path>
+								<!-- Data Points -->
+								<circle
+									cx="100"
+									cy="180"
+									fill="#ffffff"
+									r="4"
+									stroke="#3366F2"
+									stroke-width="2"
+								></circle>
+								<circle
+									cx="216"
+									cy="140"
+									fill="#ffffff"
+									r="4"
+									stroke="#3366F2"
+									stroke-width="2"
+								></circle>
+								<circle
+									cx="333"
+									cy="210"
+									fill="#ffffff"
+									r="4"
+									stroke="#3366F2"
+									stroke-width="2"
+								></circle>
+								<circle
+									cx="450"
+									cy="110"
+									fill="#ffffff"
+									r="4"
+									stroke="#3366F2"
+									stroke-width="2"
+								></circle>
+								<circle
+									cx="566"
+									cy="80"
+									fill="#ffffff"
+									r="4"
+									stroke="#3366F2"
+									stroke-width="2"
+								></circle>
+								<circle
+									cx="683"
+									cy="160"
+									fill="#ffffff"
+									r="4"
+									stroke="#3366F2"
+									stroke-width="2"
+								></circle>
+								<circle
+									cx="780"
+									cy="60"
+									fill="#3366F2"
+									r="6"
+									stroke="#ffffff"
+									stroke-width="2"
+								></circle>
+								<!-- Tooltip (Simulated) -->
+								<g transform="translate(710, 20)">
+									<rect
+										fill="#0b1c30"
+										height="36"
+										opacity="0.9"
+										rx="4"
+										width="80"
+										x="0"
+										y="0"
+									></rect>
+									<text
+										fill="#ffffff"
+										font-family="Inter"
+										font-size="10"
+										text-anchor="middle"
+										x="40"
+										y="16"
+									>
+										Yakshanba
+									</text>
+									<text
+										fill="#ffffff"
+										font-family="Inter"
+										font-size="12"
+										font-weight="600"
+										text-anchor="middle"
+										x="40"
+										y="28"
+									>
+										2.8M
+									</text>
+									<polygon
+										fill="#0b1c30"
+										opacity="0.9"
+										points="40,36 35,42 45,42"
+										transform="rotate(180 40 39)"
+									></polygon>
+								</g>
+							</svg>
+						</div>
+					</div>
+					<!-- Pie Chart: Kategoriya bo'yicha savdo -->
+					<div
+						class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 custom-shadow flex flex-col"
+					>
+						<div class="flex justify-between items-center mb-6">
+							<h3 class="text-title-sm font-title-sm text-on-surface">
+								Kategoriya bo'yicha
+							</h3>
+							<button
+								class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors"
+							>
+								<span class="material-symbols-outlined">more_vert</span>
+							</button>
+						</div>
+						<div class="flex-1 flex flex-col items-center justify-center gap-6">
+							<!-- Simulated Donut Chart using CSS conic-gradient (approximate) -->
+							<div
+								class="relative w-48 h-48 rounded-full flex items-center justify-center shadow-inner"
+								style="
+									background: conic-gradient(
+										#3366f2 0% 45%,
+										#dae2fd 45% 75%,
+										#0b1c30 75% 90%,
+										#eff4ff 90% 100%
+									);
+								"
+							>
+								<!-- Inner cutout -->
+								<div
+									class="w-32 h-32 bg-surface-container-lowest rounded-full flex flex-col items-center justify-center shadow-sm"
+								>
+									<span
+										class="text-label-caps font-label-caps text-on-surface-variant"
+										>Jami</span
+									>
+									<span
+										class="text-title-sm font-title-sm font-bold text-on-surface"
+										>342</span
+									>
+								</div>
+							</div>
+							<!-- Legend -->
+							<div class="w-full flex flex-col gap-3">
+								<div class="flex items-center justify-between">
+									<div class="flex items-center gap-2">
+										<div
+											class="w-3 h-3 rounded-full bg-primary-container"
+										></div>
+										<span
+											class="text-body-md font-body-md text-on-surface-variant"
+											>Asosiy taomlar</span
+										>
+									</div>
+									<span class="font-medium text-on-surface">45%</span>
+								</div>
+								<div class="flex items-center justify-between">
+									<div class="flex items-center gap-2">
+										<div
+											class="w-3 h-3 rounded-full bg-secondary-container"
+										></div>
+										<span
+											class="text-body-md font-body-md text-on-surface-variant"
+											>Ichimliklar</span
+										>
+									</div>
+									<span class="font-medium text-on-surface">30%</span>
+								</div>
+								<div class="flex items-center justify-between">
+									<div class="flex items-center gap-2">
+										<div class="w-3 h-3 rounded-full bg-on-surface"></div>
+										<span
+											class="text-body-md font-body-md text-on-surface-variant"
+											>Salatlar</span
+										>
+									</div>
+									<span class="font-medium text-on-surface">15%</span>
+								</div>
+								<div class="flex items-center justify-between">
+									<div class="flex items-center gap-2">
+										<div
+											class="w-3 h-3 rounded-full bg-surface-container-low border border-outline-variant/30"
+										></div>
+										<span
+											class="text-body-md font-body-md text-on-surface-variant"
+											>Shirinliklar</span
+										>
+									</div>
+									<span class="font-medium text-on-surface">10%</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Charts Row 2 -->
+				<div
+					class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 custom-shadow flex flex-col"
+				>
+					<div class="flex justify-between items-center mb-6">
+						<h3 class="text-title-sm font-title-sm text-on-surface">
+							Kunlik buyurtmalar (Soni)
+						</h3>
+						<div class="flex gap-2">
+							<span
+								class="px-3 py-1 bg-primary-container/10 text-primary-container rounded-full text-label-caps font-label-caps cursor-pointer"
+								>Barchasi</span
+							>
+							<span
+								class="px-3 py-1 text-on-surface-variant hover:bg-surface-container-low rounded-full text-label-caps font-label-caps cursor-pointer transition-colors"
+								>Olib ketish</span
+							>
+							<span
+								class="px-3 py-1 text-on-surface-variant hover:bg-surface-container-low rounded-full text-label-caps font-label-caps cursor-pointer transition-colors"
+								>Joyida</span
+							>
+						</div>
+					</div>
+					<!-- Simulated Bar Chart -->
+					<div
+						class="w-full h-[250px] flex items-end justify-between px-4 gap-2 relative border-b border-outline-variant/30 pb-6 pt-4"
+					>
+						<!-- Background Grid (Horizontal lines) -->
+						<div
+							class="absolute inset-0 flex flex-col justify-between pb-6 pointer-events-none z-0"
+						>
+							<div
+								class="w-full h-px border-t border-outline-variant/20 border-dashed"
+							></div>
+							<div
+								class="w-full h-px border-t border-outline-variant/20 border-dashed"
+							></div>
+							<div
+								class="w-full h-px border-t border-outline-variant/20 border-dashed"
+							></div>
+							<div
+								class="w-full h-px border-t border-outline-variant/20 border-dashed"
+							></div>
+						</div>
+						<!-- Bars -->
+						<div
+							class="relative w-full max-w-[40px] h-[40%] bg-secondary-container rounded-t-sm z-10 hover:bg-primary-container transition-colors cursor-pointer group"
+						>
+							<span
+								class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-label-caps font-label-caps text-on-surface-variant"
+								>Du</span
+							>
+							<div
+								class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+							>
+								32ta
+							</div>
+						</div>
+						<div
+							class="relative w-full max-w-[40px] h-[55%] bg-secondary-container rounded-t-sm z-10 hover:bg-primary-container transition-colors cursor-pointer group"
+						>
+							<span
+								class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-label-caps font-label-caps text-on-surface-variant"
+								>Se</span
+							>
+							<div
+								class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+							>
+								45ta
+							</div>
+						</div>
+						<div
+							class="relative w-full max-w-[40px] h-[35%] bg-secondary-container rounded-t-sm z-10 hover:bg-primary-container transition-colors cursor-pointer group"
+						>
+							<span
+								class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-label-caps font-label-caps text-on-surface-variant"
+								>Ch</span
+							>
+							<div
+								class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+							>
+								28ta
+							</div>
+						</div>
+						<div
+							class="relative w-full max-w-[40px] h-[70%] bg-secondary-container rounded-t-sm z-10 hover:bg-primary-container transition-colors cursor-pointer group"
+						>
+							<span
+								class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-label-caps font-label-caps text-on-surface-variant"
+								>Pa</span
+							>
+							<div
+								class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+							>
+								60ta
+							</div>
+						</div>
+						<div
+							class="relative w-full max-w-[40px] h-[90%] bg-primary-container rounded-t-sm z-10 cursor-pointer group shadow-[0_0_10px_rgba(51,102,242,0.3)]"
+						>
+							<span
+								class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-label-caps font-label-caps text-on-surface font-bold"
+								>Ju</span
+							>
+							<div
+								class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-2 py-1 rounded opacity-100 transition-opacity whitespace-nowrap"
+							>
+								85ta
+							</div>
+						</div>
+						<div
+							class="relative w-full max-w-[40px] h-[100%] bg-secondary-container rounded-t-sm z-10 hover:bg-primary-container transition-colors cursor-pointer group"
+						>
+							<span
+								class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-label-caps font-label-caps text-on-surface-variant"
+								>Sh</span
+							>
+							<div
+								class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+							>
+								95ta
+							</div>
+						</div>
+						<div
+							class="relative w-full max-w-[40px] h-[85%] bg-secondary-container rounded-t-sm z-10 hover:bg-primary-container transition-colors cursor-pointer group"
+						>
+							<span
+								class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-label-caps font-label-caps text-on-surface-variant"
+								>Ya</span
+							>
+							<div
+								class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+							>
+								75ta
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>

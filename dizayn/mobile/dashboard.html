@@ -1,0 +1,523 @@
+<!doctype html>
+
+<html class="light" lang="uz">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>Boshqaruv paneli - Asosiy</title>
+		<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<script id="tailwind-config">
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						colors: {
+							outline: '#737686',
+							'on-tertiary': '#ffffff',
+							secondary: '#565e74',
+							'on-error': '#ffffff',
+							'tertiary-fixed-dim': '#ffb695',
+							tertiary: '#993c00',
+							'surface-bright': '#f8f9ff',
+							'on-primary-container': '#f8f6ff',
+							'surface-container-lowest': '#ffffff',
+							'inverse-surface': '#213145',
+							'primary-container': '#3366f2',
+							'surface-dim': '#cbdbf5',
+							'on-primary': '#ffffff',
+							'on-secondary-container': '#5c647a',
+							'on-surface-variant': '#434655',
+							'on-surface': '#0b1c30',
+							'tertiary-container': '#c14d00',
+							primary: '#004bd8',
+							background: '#f8f9ff',
+							'on-primary-fixed-variant': '#003baf',
+							'on-secondary-fixed': '#131b2e',
+							'on-tertiary-fixed-variant': '#7b2f00',
+							'on-background': '#0b1c30',
+							'surface-variant': '#d3e4fe',
+							'inverse-primary': '#b6c4ff',
+							'error-container': '#ffdad6',
+							error: '#ba1a1a',
+							'surface-container-low': '#eff4ff',
+							'on-secondary-fixed-variant': '#3f465c',
+							'tertiary-fixed': '#ffdbcc',
+							'secondary-fixed-dim': '#bec6e0',
+							'secondary-container': '#dae2fd',
+							'surface-tint': '#1151de',
+							'secondary-fixed': '#dae2fd',
+							'inverse-on-surface': '#eaf1ff',
+							'outline-variant': '#c3c5d7',
+							'surface-container-highest': '#d3e4fe',
+							surface: '#f8f9ff',
+							'on-error-container': '#93000a',
+							'on-tertiary-fixed': '#351000',
+							'on-primary-fixed': '#00164e',
+							'primary-fixed': '#dce1ff',
+							'on-secondary': '#ffffff',
+							'surface-container': '#e5eeff',
+							'surface-container-high': '#dce9ff',
+							'primary-fixed-dim': '#b6c4ff',
+							'on-tertiary-container': '#fff6f3',
+						},
+						borderRadius: {
+							DEFAULT: '0.25rem',
+							lg: '0.5rem',
+							xl: '0.75rem',
+							full: '9999px',
+						},
+						spacing: {
+							'container-padding': '32px',
+							'sidebar-width': '280px',
+							'card-gap': '24px',
+							'stack-md': '16px',
+							'section-margin': '40px',
+							'stack-sm': '8px',
+						},
+						fontFamily: {
+							'body-md': ['Inter'],
+							'title-sm': ['Inter'],
+							'label-caps': ['Inter'],
+							'status-badge': ['Inter'],
+							'display-lg': ['Inter'],
+							'headline-md': ['Inter'],
+						},
+						fontSize: {
+							'body-md': [
+								'16px',
+								{
+									lineHeight: '24px',
+									fontWeight: '400',
+								},
+							],
+							'title-sm': [
+								'18px',
+								{
+									lineHeight: '24px',
+									fontWeight: '600',
+								},
+							],
+							'label-caps': [
+								'12px',
+								{
+									lineHeight: '16px',
+									letterSpacing: '0.05em',
+									fontWeight: '600',
+								},
+							],
+							'status-badge': [
+								'13px',
+								{
+									lineHeight: '18px',
+									fontWeight: '500',
+								},
+							],
+							'display-lg': [
+								'30px',
+								{
+									lineHeight: '38px',
+									letterSpacing: '-0.02em',
+									fontWeight: '700',
+								},
+							],
+							'headline-md': [
+								'24px',
+								{
+									lineHeight: '32px',
+									letterSpacing: '-0.01em',
+									fontWeight: '600',
+								},
+							],
+						},
+					},
+				},
+			}
+		</script>
+		<style>
+			body {
+				background-color: #f8fafc; /* Level 0 Background */
+			}
+			.stat-card {
+				background-color: white;
+				border: 1px solid #e2e8f0;
+				box-shadow:
+					0px 1px 3px rgba(0, 0, 0, 0.1),
+					0px 1px 2px rgba(0, 0, 0, 0.06);
+			}
+			.order-card {
+				background-color: white;
+				border: 1px solid #e2e8f0;
+				box-shadow:
+					0px 1px 3px rgba(0, 0, 0, 0.1),
+					0px 1px 2px rgba(0, 0, 0, 0.06);
+			}
+			.badge-yangi {
+				background-color: #dbeafe; /* Light Blue */
+				color: #1e3a8a; /* Blue text */
+			}
+			.badge-tayyorlanmoqda {
+				background-color: #fef3c7; /* Light Amber */
+				color: #92400e; /* Amber text */
+			}
+			.badge-tayyor {
+				background-color: #d1fae5; /* Light Emerald */
+				color: #065f46; /* Emerald text */
+			}
+		</style>
+		<style>
+			body {
+				min-height: max(884px, 100dvh);
+			}
+		</style>
+	</head>
+	<body class="font-body-md text-on-surface pb-24 md:pb-0 overflow-x-hidden">
+		<!-- Top App Bar (Mobile only, replaces standard TopAppBar on mobile for custom greeting) -->
+		<header
+			class="md:hidden flex justify-between items-center w-full px-4 py-4 bg-surface dark:bg-surface-container-lowest sticky top-0 z-40 shadow-sm border-b border-outline-variant"
+		>
+			<div class="flex items-center gap-3">
+				<div class="w-10 h-10 rounded-full overflow-hidden shrink-0">
+					<img
+						class="w-full h-full object-cover"
+						data-alt="A close up professional headshot of an Uzbek cafe administrator in their late 20s. The lighting is bright and modern, creating a clear and inviting portrait suitable for a corporate SaaS profile picture. The background is softly blurred out with cool blue and white tones to match the application's clean aesthetic."
+						src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJDdQneL7QOT3OhgGz0D3ONnHXCrbAc_JyRgjaKgwZ9I0HbDK-JQ6da2J6MpVLvF8rIZ2zO_8PZ7-k1ncDYdksO0t80zE-UqeS0QH8tHQuzptJNixJrhVCPf2hrqw_olTf8lVint9umwNcoNRlCKE7HvBZwjs_fv-A9HiP2aEFHTVYg9QxcwMxX2jk_4Gf746dI9V5Hc55WGtO2UxljSdBlugPJtyjKxIYxI8uc_-a7rbyBMhcc9LoKg"
+					/>
+				</div>
+				<div>
+					<h1 class="font-title-sm text-title-sm text-on-surface">
+						Xush kelibsiz, Mavlon!
+					</h1>
+					<p
+						class="font-label-caps text-label-caps text-on-surface-variant font-normal"
+					>
+						24 Oktabr, 2023
+					</p>
+				</div>
+			</div>
+			<button
+				class="hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded-full p-2 active:opacity-70 transition-opacity"
+			>
+				<span class="material-symbols-outlined text-on-surface-variant"
+					>dark_mode</span
+				>
+			</button>
+		</header>
+		<!-- Main Content Area -->
+		<main
+			class="w-full px-4 py-6 flex flex-col gap-section-margin max-w-7xl mx-auto"
+		>
+			<!-- Stats Grid (Mobile 2x2) -->
+			<section>
+				<h2 class="font-title-sm text-title-sm text-on-surface mb-4">
+					Umumiy ko'rsatkichlar
+				</h2>
+				<div class="grid grid-cols-2 gap-4">
+					<!-- Stat Card 1 -->
+					<div class="stat-card rounded-lg p-4 flex flex-col gap-3">
+						<div class="flex items-center justify-between">
+							<div
+								class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"
+							>
+								<span
+									class="material-symbols-outlined"
+									style="font-variation-settings: 'FILL' 1"
+									>payments</span
+								>
+							</div>
+						</div>
+						<div>
+							<p
+								class="font-label-caps text-label-caps text-on-surface-variant uppercase"
+							>
+								Bugungi savdo
+							</p>
+							<p class="font-title-sm text-title-sm text-on-surface mt-1">
+								2.4 mln s
+							</p>
+						</div>
+						<div
+							class="flex items-center gap-1 text-emerald-600 font-label-caps text-label-caps"
+						>
+							<span class="material-symbols-outlined text-[16px]"
+								>trending_up</span
+							>
+							<span>+12%</span>
+						</div>
+					</div>
+					<!-- Stat Card 2 -->
+					<div class="stat-card rounded-lg p-4 flex flex-col gap-3">
+						<div class="flex items-center justify-between">
+							<div
+								class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"
+							>
+								<span
+									class="material-symbols-outlined"
+									style="font-variation-settings: 'FILL' 1"
+									>receipt_long</span
+								>
+							</div>
+						</div>
+						<div>
+							<p
+								class="font-label-caps text-label-caps text-on-surface-variant uppercase"
+							>
+								Buyurtmalar
+							</p>
+							<p class="font-title-sm text-title-sm text-on-surface mt-1">48</p>
+						</div>
+						<div
+							class="flex items-center gap-1 text-emerald-600 font-label-caps text-label-caps"
+						>
+							<span class="material-symbols-outlined text-[16px]"
+								>trending_up</span
+							>
+							<span>+8%</span>
+						</div>
+					</div>
+					<!-- Stat Card 3 -->
+					<div class="stat-card rounded-lg p-4 flex flex-col gap-3">
+						<div class="flex items-center justify-between">
+							<div
+								class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"
+							>
+								<span
+									class="material-symbols-outlined"
+									style="font-variation-settings: 'FILL' 1"
+									>account_balance_wallet</span
+								>
+							</div>
+						</div>
+						<div>
+							<p
+								class="font-label-caps text-label-caps text-on-surface-variant uppercase"
+							>
+								Sof foyda
+							</p>
+							<p class="font-title-sm text-title-sm text-on-surface mt-1">
+								1.8 mln s
+							</p>
+						</div>
+						<div
+							class="flex items-center gap-1 text-emerald-600 font-label-caps text-label-caps"
+						>
+							<span class="material-symbols-outlined text-[16px]"
+								>trending_up</span
+							>
+							<span>+6%</span>
+						</div>
+					</div>
+					<!-- Stat Card 4 -->
+					<div class="stat-card rounded-lg p-4 flex flex-col gap-3">
+						<div class="flex items-center justify-between">
+							<div
+								class="w-10 h-10 rounded-full bg-error/10 flex items-center justify-center text-error"
+							>
+								<span
+									class="material-symbols-outlined"
+									style="font-variation-settings: 'FILL' 1"
+									>trending_down</span
+								>
+							</div>
+						</div>
+						<div>
+							<p
+								class="font-label-caps text-label-caps text-on-surface-variant uppercase"
+							>
+								Harajatlar
+							</p>
+							<p class="font-title-sm text-title-sm text-on-surface mt-1">
+								600k s
+							</p>
+						</div>
+						<div
+							class="flex items-center gap-1 text-error font-label-caps text-label-caps"
+						>
+							<span class="material-symbols-outlined text-[16px]"
+								>trending_down</span
+							>
+							<span>-3%</span>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Recent Orders Section -->
+			<section>
+				<div class="flex justify-between items-center mb-4">
+					<h2 class="font-title-sm text-title-sm text-on-surface">
+						So'nggi buyurtmalar
+					</h2>
+					<button
+						class="text-primary font-label-caps text-label-caps hover:underline"
+					>
+						Barchasi
+					</button>
+				</div>
+				<div class="flex flex-col gap-3">
+					<!-- Order Card 1 -->
+					<div class="order-card rounded-lg p-4 flex flex-col gap-3">
+						<div class="flex justify-between items-start">
+							<div>
+								<span
+									class="font-label-caps text-label-caps text-on-surface-variant"
+									>#1042</span
+								>
+								<h3 class="font-title-sm text-title-sm text-on-surface">
+									Ali Valiyev
+								</h3>
+							</div>
+							<span
+								class="badge-yangi font-status-badge text-status-badge px-2 py-1 rounded-full"
+								>Yangi</span
+							>
+						</div>
+						<div class="text-body-md text-on-surface-variant text-sm">
+							2x Palov, 1x Choy, 1x Non
+						</div>
+						<div
+							class="flex justify-between items-center mt-1 pt-3 border-t border-outline-variant/30"
+						>
+							<span
+								class="font-label-caps text-label-caps text-on-surface-variant"
+								>Jami summa:</span
+							>
+							<span class="font-title-sm text-title-sm text-on-surface"
+								>120 000 so'm</span
+							>
+						</div>
+					</div>
+					<!-- Order Card 2 -->
+					<div class="order-card rounded-lg p-4 flex flex-col gap-3">
+						<div class="flex justify-between items-start">
+							<div>
+								<span
+									class="font-label-caps text-label-caps text-on-surface-variant"
+									>#1041</span
+								>
+								<h3 class="font-title-sm text-title-sm text-on-surface">
+									Mijoz 5
+								</h3>
+							</div>
+							<span
+								class="badge-tayyorlanmoqda font-status-badge text-status-badge px-2 py-1 rounded-full"
+								>Tayyorlanmoqda</span
+							>
+						</div>
+						<div class="text-body-md text-on-surface-variant text-sm">
+							1x Lag'mon, 2x Somsa, 1x Kofe
+						</div>
+						<div
+							class="flex justify-between items-center mt-1 pt-3 border-t border-outline-variant/30"
+						>
+							<span
+								class="font-label-caps text-label-caps text-on-surface-variant"
+								>Jami summa:</span
+							>
+							<span class="font-title-sm text-title-sm text-on-surface"
+								>85 000 so'm</span
+							>
+						</div>
+					</div>
+					<!-- Order Card 3 -->
+					<div class="order-card rounded-lg p-4 flex flex-col gap-3">
+						<div class="flex justify-between items-start">
+							<div>
+								<span
+									class="font-label-caps text-label-caps text-on-surface-variant"
+									>#1040</span
+								>
+								<h3 class="font-title-sm text-title-sm text-on-surface">
+									Olim aka
+								</h3>
+							</div>
+							<span
+								class="badge-tayyor font-status-badge text-status-badge px-2 py-1 rounded-full"
+								>Tayyor</span
+							>
+						</div>
+						<div class="text-body-md text-on-surface-variant text-sm">
+							4x Shashlik, 2x Non, 1x Sharbat
+						</div>
+						<div
+							class="flex justify-between items-center mt-1 pt-3 border-t border-outline-variant/30"
+						>
+							<span
+								class="font-label-caps text-label-caps text-on-surface-variant"
+								>Jami summa:</span
+							>
+							<span class="font-title-sm text-title-sm text-on-surface"
+								>180 000 so'm</span
+							>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- BottomNavBar (from Shared Components JSON, mapped logic) -->
+		<!-- Active Tab: "Asosiy" -->
+		<nav
+			class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center py-2 px-4 bg-surface dark:bg-surface-container-lowest shadow-[0px_-1px_3px_rgba(0,0,0,0.1)] dark:bg-surface-container docked full-width rounded-t-xl pb-safe"
+		>
+			<!-- Tab 1: Asosiy (Active) -->
+			<button
+				class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold font-label-caps text-label-caps hover:bg-surface-container-high transition-colors scale-95 active:scale-90 p-2 rounded-lg"
+			>
+				<span
+					class="material-symbols-outlined mb-1"
+					style="font-variation-settings: 'FILL' 1"
+					>home</span
+				>
+				<span>Asosiy</span>
+			</button>
+			<!-- Tab 2: Buyurtmalar (Inactive) -->
+			<button
+				class="flex flex-col items-center justify-center text-outline dark:text-outline-variant font-label-caps text-label-caps hover:bg-surface-container-high transition-colors scale-95 active:scale-90 p-2 rounded-lg"
+			>
+				<span class="material-symbols-outlined mb-1">receipt_long</span>
+				<span>Buyurtmalar</span>
+			</button>
+			<!-- Tab 3: Menyu (Inactive) -->
+			<button
+				class="flex flex-col items-center justify-center text-outline dark:text-outline-variant font-label-caps text-label-caps hover:bg-surface-container-high transition-colors scale-95 active:scale-90 p-2 rounded-lg"
+			>
+				<span class="material-symbols-outlined mb-1">restaurant</span>
+				<span>Menyu</span>
+			</button>
+			<!-- Tab 4: Kassa (Inactive) -->
+			<button
+				class="flex flex-col items-center justify-center text-outline dark:text-outline-variant font-label-caps text-label-caps hover:bg-surface-container-high transition-colors scale-95 active:scale-90 p-2 rounded-lg"
+			>
+				<span class="material-symbols-outlined mb-1"
+					>account_balance_wallet</span
+				>
+				<span>Kassa</span>
+			</button>
+			<!-- Tab 5: Yana (Inactive) -->
+			<button
+				class="flex flex-col items-center justify-center text-outline dark:text-outline-variant font-label-caps text-label-caps hover:bg-surface-container-high transition-colors scale-95 active:scale-90 p-2 rounded-lg"
+			>
+				<span class="material-symbols-outlined mb-1">menu</span>
+				<span>Yana</span>
+			</button>
+		</nav>
+		<style>
+			/* Basic safe area padding for modern mobile devices */
+			@supports (padding-bottom: env(safe-area-inset-bottom)) {
+				.pb-safe {
+					padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+				}
+			}
+		</style>
+	</body>
+</html>

@@ -1,0 +1,297 @@
+<!doctype html>
+
+<html class="light" lang="uz">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>Tizimga kirish - Yoshlik Kafe</title>
+		<!-- Tailwind CSS -->
+		<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+		<!-- Material Symbols -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<!-- Google Fonts: Inter -->
+		<link href="https://fonts.googleapis.com" rel="preconnect" />
+		<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<!-- Tailwind Config injected from Design System -->
+		<script id="tailwind-config">
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						colors: {
+							'on-secondary-container': '#5c647a',
+							'inverse-surface': '#213145',
+							'inverse-primary': '#b6c4ff',
+							primary: '#004bd8',
+							'surface-tint': '#1151de',
+							'surface-container-highest': '#d3e4fe',
+							'error-container': '#ffdad6',
+							'secondary-container': '#dae2fd',
+							'outline-variant': '#c3c5d7',
+							'on-tertiary-fixed': '#351000',
+							'on-primary': '#ffffff',
+							surface: '#f8f9ff',
+							'on-surface-variant': '#434655',
+							'secondary-fixed-dim': '#bec6e0',
+							'tertiary-container': '#c14d00',
+							'primary-container': '#3366f2',
+							'surface-variant': '#d3e4fe',
+							'on-background': '#0b1c30',
+							'on-error': '#ffffff',
+							'primary-fixed': '#dce1ff',
+							outline: '#737686',
+							'tertiary-fixed': '#ffdbcc',
+							'surface-container-low': '#eff4ff',
+							'on-secondary-fixed': '#131b2e',
+							'on-primary-fixed-variant': '#003baf',
+							'surface-container-high': '#dce9ff',
+							'on-secondary': '#ffffff',
+							'tertiary-fixed-dim': '#ffb695',
+							'on-error-container': '#93000a',
+							'on-tertiary': '#ffffff',
+							'on-secondary-fixed-variant': '#3f465c',
+							tertiary: '#993c00',
+							'on-primary-fixed': '#00164e',
+							'surface-container': '#e5eeff',
+							'surface-dim': '#cbdbf5',
+							'surface-bright': '#f8f9ff',
+							'surface-container-lowest': '#ffffff',
+							'on-surface': '#0b1c30',
+							error: '#ba1a1a',
+							secondary: '#565e74',
+							'on-primary-container': '#f8f6ff',
+							'primary-fixed-dim': '#b6c4ff',
+							'on-tertiary-fixed-variant': '#7b2f00',
+							'inverse-on-surface': '#eaf1ff',
+							background: '#f8f9ff',
+							'on-tertiary-container': '#fff6f3',
+							'secondary-fixed': '#dae2fd',
+						},
+						borderRadius: {
+							DEFAULT: '0.25rem',
+							lg: '0.5rem',
+							xl: '0.75rem',
+							full: '9999px',
+						},
+						spacing: {
+							'stack-md': '16px',
+							'container-padding': '32px',
+							'section-margin': '40px',
+							'sidebar-width': '280px',
+							'card-gap': '24px',
+							'stack-sm': '8px',
+						},
+						fontFamily: {
+							'status-badge': ['Inter'],
+							'label-caps': ['Inter'],
+							'body-md': ['Inter'],
+							'headline-md': ['Inter'],
+							'title-sm': ['Inter'],
+							'display-lg': ['Inter'],
+						},
+						fontSize: {
+							'status-badge': [
+								'13px',
+								{
+									lineHeight: '18px',
+									fontWeight: '500',
+								},
+							],
+							'label-caps': [
+								'12px',
+								{
+									lineHeight: '16px',
+									letterSpacing: '0.05em',
+									fontWeight: '600',
+								},
+							],
+							'body-md': [
+								'16px',
+								{
+									lineHeight: '24px',
+									fontWeight: '400',
+								},
+							],
+							'headline-md': [
+								'24px',
+								{
+									lineHeight: '32px',
+									letterSpacing: '-0.01em',
+									fontWeight: '600',
+								},
+							],
+							'title-sm': [
+								'18px',
+								{
+									lineHeight: '24px',
+									fontWeight: '600',
+								},
+							],
+							'display-lg': [
+								'30px',
+								{
+									lineHeight: '38px',
+									letterSpacing: '-0.02em',
+									fontWeight: '700',
+								},
+							],
+						},
+					},
+				},
+			}
+		</script>
+		<style>
+			/* Custom styles for Telegram icon color override if needed, though primary container text color should work */
+			.material-symbols-outlined {
+				font-variation-settings:
+					'FILL' 0,
+					'wght' 400,
+					'GRAD' 0,
+					'opsz' 24;
+			}
+
+			/* Subtle geometric background pattern */
+			body {
+				background-color: theme('colors.surface-container-low');
+				background-image: radial-gradient(
+					theme('colors.surface-container-high') 1px,
+					transparent 1px
+				);
+				background-size: 24px 24px;
+			}
+			.dark body {
+				background-color: theme('colors.background');
+				background-image: radial-gradient(
+					theme('colors.on-background') 1px,
+					transparent 1px
+				);
+				opacity: 0.95;
+			}
+		</style>
+	</head>
+	<body
+		class="min-h-screen flex items-center justify-center relative bg-surface-container-low text-on-surface transition-colors duration-300 overflow-hidden font-body-md"
+	>
+		<!-- Theme Toggle -->
+		<div class="absolute top-6 right-6 z-50">
+			<button
+				aria-label="Toggle Theme"
+				class="p-2 rounded-full bg-surface-container-highest dark:bg-surface-container hover:bg-secondary-container dark:hover:bg-secondary-fixed transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-container"
+				id="themeToggle"
+			>
+				<span
+					class="material-symbols-outlined text-on-surface-variant dark:text-secondary-fixed-dim"
+					id="themeIcon"
+				>
+					light_mode
+				</span>
+			</button>
+		</div>
+		<!-- Main Container -->
+		<div class="w-full max-w-[400px] px-4 relative z-10">
+			<!-- Login Card -->
+			<div
+				class="bg-surface-container-lowest dark:bg-on-secondary-fixed rounded-[20px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-2px_rgba(0,0,0,0.05)] border border-outline-variant/30 overflow-hidden"
+			>
+				<div class="p-8 flex flex-col items-center">
+					<!-- Brand Header -->
+					<div class="flex flex-col items-center mb-8">
+						<div
+							class="w-12 h-12 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-center shadow-sm mb-4"
+						>
+							<span
+								class="font-display-lg text-display-lg font-bold leading-none"
+								>Y</span
+							>
+						</div>
+						<h1
+							class="font-headline-md text-headline-md text-on-surface font-semibold text-center"
+						>
+							Yoshlik Kafe
+						</h1>
+						<p
+							class="font-label-caps text-label-caps text-outline uppercase tracking-wider mt-1 text-center"
+						>
+							Admin Panel
+						</p>
+					</div>
+					<!-- Main Content -->
+					<div
+						class="w-full flex flex-col items-center text-center space-y-2 mb-8"
+					>
+						<h2
+							class="font-title-sm text-title-sm text-on-surface font-semibold"
+						>
+							Tizimga kirish
+						</h2>
+						<p class="font-body-md text-body-md text-on-surface-variant">
+							Davom etish uchun Telegram orqali kiring
+						</p>
+					</div>
+					<!-- Login Action -->
+					<div class="w-full flex flex-col items-center space-y-4">
+						<button
+							class="w-full h-[52px] bg-primary-container hover:bg-surface-tint text-on-primary-container rounded-lg flex items-center justify-center space-x-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface-container-lowest shadow-sm group"
+						>
+							<span
+								class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform"
+							>
+								send
+							</span>
+							<span class="font-title-sm text-title-sm font-semibold"
+								>Telegram orqali kirish</span
+							>
+						</button>
+						<p
+							class="font-label-caps text-label-caps text-outline text-center px-4"
+						>
+							Faqat ruxsat berilgan administratorlar kira oladi
+						</p>
+					</div>
+				</div>
+				<!-- Subtle decorative bottom border (optional, matching style logic) -->
+				<div
+					class="h-1 w-full bg-gradient-to-r from-primary-container via-surface-tint to-primary"
+				></div>
+			</div>
+			<!-- Footer -->
+			<div class="mt-8 text-center">
+				<p class="font-label-caps text-label-caps text-outline tracking-wider">
+					© 2026 Yoshlik Kafe
+				</p>
+			</div>
+		</div>
+		<!-- Vanilla JS for Theme Toggle -->
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const themeToggleBtn = document.getElementById('themeToggle')
+				const themeIcon = document.getElementById('themeIcon')
+				const htmlElement = document.documentElement
+
+				// Simple toggle logic for demo purposes
+				themeToggleBtn.addEventListener('click', () => {
+					if (htmlElement.classList.contains('dark')) {
+						htmlElement.classList.remove('dark')
+						htmlElement.classList.add('light')
+						themeIcon.textContent = 'light_mode'
+					} else {
+						htmlElement.classList.remove('light')
+						htmlElement.classList.add('dark')
+						themeIcon.textContent = 'dark_mode'
+					}
+				})
+			})
+		</script>
+	</body>
+</html>
