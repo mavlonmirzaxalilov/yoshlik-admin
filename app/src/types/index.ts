@@ -6,21 +6,13 @@ export interface Admin {
   full_name: string
   role: AdminRole
   is_active: boolean
+  auth_user_id: string | null
 }
 
 export interface Setting {
   key: string
   value: string | null
   updated_at: string
-}
-
-export interface AdminCode {
-  id: string
-  telegram_id: number | string
-  code: string
-  expires_at: string
-  used: boolean
-  created_at: string
 }
 
 export type OrderType = 'delivery' | 'pickup' | 'dine_in'

@@ -3,17 +3,18 @@ import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
 
 export function LoginPage() {
-  const { loginWithCode, error, loading, clearError } = useAuth()
+  const { login, error, loading, clearError } = useAuth()
   const { theme, toggleTheme } = useTheme()
-  const [code, setCode] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const isValidLength = code.length === 6
+  const isValid = email.trim().length > 0 && password.length > 0
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (!isValidLength || loading) return
+    if (!isValid || loading) return
     clearError()
-    loginWithCode(code)
+    login(email.trim(), password)
   }
 
   return (
@@ -52,7 +53,7 @@ export function LoginPage() {
                 Tizimga kirish
               </h2>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Kirish uchun Telegram botga <span className="font-semibold text-on-surface">/admin</span> yozing va kodni kiriting
+                Email va parolingizni kiriting
               </p>
             </div>
 
@@ -64,22 +65,34 @@ export function LoginPage() {
               )}
 
               <input
-                value={code}
+                value={email}
                 onChange={(e) => {
                   clearError()
-                  setCode(e.target.value.replace(/\D/g, '').slice(0, 6))
+                  setEmail(e.target.value)
                 }}
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                maxLength={6}
-                placeholder="000000"
-                aria-label="6 xonali kod"
-                className="w-full rounded-lg border border-outline-variant bg-surface-container-low px-4 py-3 text-center font-display-lg text-display-lg tracking-[0.3em] text-on-surface outline-none transition-colors focus:border-primary-container focus:ring-2 focus:ring-primary-container placeholder:text-outline-variant"
+                type="email"
+                autoComplete="email"
+                placeholder="email@misol.com"
+                aria-label="Email"
+                className="w-full rounded-lg border border-outline-variant bg-surface-container-low px-4 py-3 text-left font-body-md text-body-md text-on-surface outline-none transition-colors focus:border-primary-container focus:ring-2 focus:ring-primary-container placeholder:text-outline-variant"
+              />
+
+              <input
+                value={password}
+                onChange={(e) => {
+                  clearError()
+                  setPassword(e.target.value)
+                }}
+                type="password"
+                autoComplete="current-password"
+                placeholder="Parol"
+                aria-label="Parol"
+                className="w-full rounded-lg border border-outline-variant bg-surface-container-low px-4 py-3 text-left font-body-md text-body-md text-on-surface outline-none transition-colors focus:border-primary-container focus:ring-2 focus:ring-primary-container placeholder:text-outline-variant"
               />
 
               <button
                 type="submit"
-                disabled={loading || !isValidLength}
+                disabled={loading || !isValid}
                 className="group flex h-[52px] w-full items-center justify-center space-x-2 rounded-lg bg-primary-container text-on-primary-container shadow-sm transition-colors duration-200 hover:bg-surface-tint focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface-container-lowest disabled:opacity-60"
               >
                 {loading ? (
